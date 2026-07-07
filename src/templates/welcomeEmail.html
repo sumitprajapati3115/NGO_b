@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to the NGO</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #111827;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
+    }
+
+    .header {
+      background: linear-gradient(135deg, #2563eb 0%, #0f766e 100%);
+      color: #ffffff;
+      padding: 36px 32px;
+      text-align: center;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      line-height: 1.1;
+    }
+
+    .header p {
+      margin: 16px auto 0;
+      max-width: 540px;
+      font-size: 1rem;
+      opacity: 0.95;
+    }
+
+    .content {
+      padding: 36px 32px;
+    }
+
+    .content p {
+      margin: 0 0 18px;
+      line-height: 1.8;
+      color: #334155;
+      font-size: 1rem;
+    }
+
+    .content .button {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 14px 26px;
+      border-radius: 999px;
+      background: #2563eb;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .footer {
+      padding: 28px 32px 40px;
+      background-color: #f8fafc;
+      color: #64748b;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .footer p {
+      margin: 0 0 12px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      color: #0f172a;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #2563eb;
+      box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.12);
+    }
+
+    @media (max-width: 600px) {
+      .header, .content, .footer {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      .header h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="background-color: #e2e8f0; padding: 40px 16px;">
+    <tr>
+      <td align="center">
+        <table class="container" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+          <tr>
+            <td class="header">
+              <h1>Welcome to Our Community</h1>
+              <p>We're excited to have you with us on this journey of service, compassion, and positive change.</p>
+            </td>
+          </tr>
+          <tr>
+            <td class="content">
+              <p>Hi {{name}},</p>
+              <p>Thank you for joining the Shri Ram Youth Foundation family. Your support empowers meaningful work across education, healthcare, and community service.</p>
+              <p>We are thrilled to have you onboard and look forward to sharing updates, events, and opportunities to make a real difference.</p>
+              <p>Warm regards,<br>The Shri Ram Youth Foundation Team</p>
+              <a href="{{ctaLink}}" class="button">Explore Our Impact</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="footer">
+              <p>If you have any questions, feel free to reply to this email. We're here to help.</p>
+              <div class="brand">
+                <span class="brand-dot"></span>
+                Shri Ram Youth Foundation
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

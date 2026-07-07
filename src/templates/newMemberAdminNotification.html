@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>नया सदस्यता आवेदन</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        h1 { color: #F97316; }
+        p { margin-bottom: 10px; }
+        strong { color: #1a1a1a; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>नया सदस्यता आवेदन प्राप्त हुआ</h1>
+        <p>नमस्ते एडमिन,</p>
+        <p>श्री राम यूथ फाउंडेशन के लिए एक नया सदस्यता आवेदन जमा किया गया है। विवरण नीचे दिए गए हैं:</p>
+        <ul>
+            <li><strong>पूरा नाम:</strong> {{fullName}}</li>
+            <li><strong>ईमेल:</strong> {{email}}</li>
+            <li><strong>सदस्य आईडी:</strong> {{memberId}}</li>
+        </ul>
+        <p>कृपया अनुमोदन के लिए एडमिन डैशबोर्ड में लॉगिन करें।</p>
+        <br>
+        <p>साभार,<br>स्वचालित सूचना प्रणाली</p>
+    </div>
+</body>
+</html>

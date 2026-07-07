@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<title>सदस्यता प्रमाण पत्र</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Poppins:wght@400;600;700&family=Yatra+One&display=swap" rel="stylesheet">
+<style>
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans Devanagari', 'Poppins', sans-serif;
+    margin: 0; /* सुनिश्चित करें कि कोई डिफ़ॉल्ट मार्जिन न हो */
+    padding: 0; /* सुनिश्चित करें कि कोई डिफ़ॉल्ट पैडिंग न हो */
+    width: 1080px; /* बॉडी को प्रमाणपत्र के आकार में बाध्य करें */
+    height: 764px; /* बॉडी को प्रमाणपत्र के आकार में बाध्य करें */
+    overflow: hidden; /* किसी भी ओवरफ्लो को दूसरा पेज बनाने से रोकें */
+  }
+
+  .certificate {
+    position: relative;
+    width: 1080px;
+    height: 764px;
+    background: linear-gradient(180deg, #fdf6ec 0%, #f7ecd9 55%, #f3e4cc 100%);    
+    overflow: hidden; /* Prevent any internal element from overflowing */
+    {{#if is_preview}}
+      box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+      border-radius: 6px;
+    {{/if}}
+  }
+
+  .download-button-container {
+    position: absolute;
+    top: 35px;
+    right: 40px;
+    z-index: 10;
+  }
+
+  /* Gold border frame */
+  .certificate::before {
+    content: "";
+    position: absolute;
+    inset: 14px;
+    border: 3px solid #c9a24a;
+    border-radius: 4px;
+    background:
+      linear-gradient(90deg, transparent 0%, transparent 100%);
+    box-shadow:
+      0 0 0 1px #e8cf8a inset,
+      0 0 0 6px #fdf6ec inset;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* Corner ornaments (dark navy triangles with gold trim) */
+  .corner {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    z-index: 6;
+    pointer-events: none;
+  }
+  .corner svg { width: 100%; height: 100%; }
+  .corner.tl { top: 0; left: 0; }
+  .corner.tr { top: 0; right: 0; transform: scaleX(-1); }
+  .corner.bl { bottom: 0; left: 0; transform: scaleY(-1); }
+  .corner.br { bottom: 0; right: 0; transform: scale(-1,-1); }
+
+  /* Temple silhouette background at bottom */
+  .temple-bg {
+    position: absolute;
+    left: 0; right: 0; bottom: 40px;
+    height: 130px;
+    opacity: 0.18;
+    z-index: 1;
+  }
+
+  .content {
+    position: relative;
+    z-index: 4;
+    height: 100%;
+    padding: 35px 60px 25px 60px;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    overflow: visible;
+  }
+
+  .logo-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 160px;
+    flex-shrink: 0;
+    overflow: visible;
+  }
+
+  .tagline {
+    font-weight: 800;
+    font-size: 16px;
+    color: #14205c;
+    text-align: center;
+    margin-bottom: 4px;
+    white-space: nowrap;
+  }
+  .tagline .accent { color: #f0741f; }
+
+  .logo-circle {
+    width: 110px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 6px;
+  }
+  .logo-circle .ribbon {
+    position: absolute;
+    top: -14px;
+    background: #d21f1f;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    padding: 3px 12px;
+    border-radius: 3px;
+    border: 1.5px solid #f7d98a;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    white-space: nowrap;
+    z-index: 2;
+  }
+  .logo-circle .icon {
+    font-size: 44px;
+    line-height: 1;
+  }
+  .logo-shield {
+    margin-top: -4px;
+    background: linear-gradient(180deg, #14205c, #0d1747);
+    color: #fff;
+    font-weight: 800;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    padding: 6px 14px 8px 14px;
+    line-height: 1.25;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    clip-path: polygon(6% 0, 94% 0, 100% 55%, 50% 96%, 0 55%);
+    z-index: 1;
+  }
+  .logo-sub {
+    margin-top: 4px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #14205c;
+    text-align: center;
+    line-height: 1.2;
+    background: #fdf0d8;
+    border: 1px solid #d9a441;
+    border-radius: 3px;
+    padding: 2px 6px;
+  }
+  .logo-sub .orange { color: #f0741f; }
+
+  .divider-slash {
+    width: 4px;
+    height: 110px;
+    background: #f0741f;
+    transform: skewX(-18deg);
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .title-block { flex: 1; text-align: left; }
+
+  .org-name {
+    font-family: 'Yatra One', 'Noto Sans Devanagari', sans-serif;
+    font-size: 52px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: 1px;
+    color: #14205c;
+  }
+  .org-name .shri-ram { color: #f0741f; }
+  .org-name .rest { color: #14205c; }
+
+  .ornament-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 10px 0 8px 0;
+  }
+  .ornament-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #c9a24a, transparent);
+  }
+  .ornament-diamond {
+    font-family: 'Yatra One', sans-serif;
+    color: #c9a24a;
+    font-size: 24px;
+  }
+
+  .motto-pill {
+    display: inline-block;
+    background: linear-gradient(180deg, #1a2a7a, #0d1747);
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 6px 22px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+
+  /* Certificate type badge */
+  .cert-badge-row {
+    text-align: center;
+    margin: 16px 0 14px 0;
+  }
+  .cert-badge {
+    display: inline-block;
+    background: linear-gradient(180deg, #f7942e, #ed6c1a);
+    color: #fff;
+    font-weight: 800;
+    font-size: 24px;
+    padding: 8px 35px;
+    border-radius: 6px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+  }
+
+  /* Body text */
+  .body-text {
+    text-align: center;
+    color: #14205c;
+    font-size: 17px;
+    line-height: 1.8;
+    padding: 0 10px;
+  }
+  .body-text .name-line {
+    font-size: 18px;
+  }
+  .body-text .name-field {
+    display: inline-block;
+    min-width: 300px;
+    border-bottom: 2px solid #14205c;
+    font-weight: 800;
+    text-align: center;
+    padding-bottom: 2px;
+  }
+  .body-text .role {
+    color: #f0741f;
+    font-weight: 800;
+  }
+
+  /* Footer band with mottos */
+  .footer-band-row { margin: 16px 0; }
+  .footer-band {
+    display: block;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #1a2a7a, #0d1747);
+    border: 1.5px solid #d9a441;
+    color: #f5d98a;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    padding: 8px 25px;
+    border-radius: 20px;
+    width: fit-content;
+    letter-spacing: 0.3px;
+  }
+  .footer-band .sep { color: #f0741f; margin: 0 10px; }
+
+  /* Bottom section: membership + signature */
+  .bottom-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: auto;
+    padding-top: 20px;
+    position: relative;
+    z-index: 4;
+  }
+
+  .membership-info {
+    color: #14205c;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  .membership-info b { font-weight: 800; }
+  .membership-info .value {
+    text-decoration: underline;
+    font-weight: 700;
+  }
+
+  .signature-block {
+    text-align: center;
+    color: #14205c;
+  }
+  .signature-line {
+    border-top: 1.5px solid #14205c;
+    width: 190px;
+    margin-bottom: 6px;
+  }
+  .signature-name {
+    color: #ed6c1a;
+    font-weight: 800;
+    font-size: 17px;
+  }
+  .signature-role {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .signature-org {
+    font-size: 14px;
+    font-weight: 800;
+    color: #ed6c1a;
+  }
+</style>
+</head>
+<body>
+
+<div class="certificate">
+
+  {{#if is_preview}}
+  <div class="download-button-container">
+    <a href="/api/certificates/download/{{ member_id_for_download }}" 
+       style="display: inline-block; padding: 10px 20px; background-color: #16a34a; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2); font-family: 'Poppins', sans-serif;">
+      डाउनलोड करें
+    </a>
+  </div>
+  {{/if}}
+
+  <!-- Corner ornaments: navy wedge with flowing gold trim, matching reference -->
+  <div class="corner tl">
+    <svg viewBox="0 0 110 110">
+      <path d="M0,0 L110,0 L110,8 C70,8 60,18 40,38 C18,60 8,78 8,110 L0,110 Z" fill="#0d1747"/>
+      <path d="M0,0 L110,0" stroke="#d9a441" stroke-width="3"/>
+      <path d="M0,0 L0,110" stroke="#d9a441" stroke-width="3"/>
+      <path d="M6,44 C6,24 24,6 44,6" fill="none" stroke="#e8c877" stroke-width="2"/>
+      <circle cx="6" cy="44" r="3" fill="#e8c877"/>
+      <circle cx="44" cy="6" r="3" fill="#e8c877"/>
+      <path d="M18,66 C18,38 38,18 66,18" fill="none" stroke="#c9a24a" stroke-width="1.5" opacity="0.8"/>
+    </svg>
+  </div>
+  <div class="corner tr">
+    <svg viewBox="0 0 110 110">
+      <path d="M0,0 L110,0 L110,8 C70,8 60,18 40,38 C18,60 8,78 8,110 L0,110 Z" fill="#0d1747"/>
+      <path d="M0,0 L110,0" stroke="#d9a441" stroke-width="3"/>
+      <path d="M0,0 L0,110" stroke="#d9a441" stroke-width="3"/>
+      <path d="M6,44 C6,24 24,6 44,6" fill="none" stroke="#e8c877" stroke-width="2"/>
+      <circle cx="6" cy="44" r="3" fill="#e8c877"/>
+      <circle cx="44" cy="6" r="3" fill="#e8c877"/>
+      <path d="M18,66 C18,38 38,18 66,18" fill="none" stroke="#c9a24a" stroke-width="1.5" opacity="0.8"/>
+    </svg>
+  </div>
+  <div class="corner bl">
+    <svg viewBox="0 0 110 110">
+      <path d="M0,0 L110,0 L110,8 C70,8 60,18 40,38 C18,60 8,78 8,110 L0,110 Z" fill="#0d1747"/>
+      <path d="M0,0 L110,0" stroke="#d9a441" stroke-width="3"/>
+      <path d="M0,0 L0,110" stroke="#d9a441" stroke-width="3"/>
+      <path d="M6,44 C6,24 24,6 44,6" fill="none" stroke="#e8c877" stroke-width="2"/>
+      <circle cx="6" cy="44" r="3" fill="#e8c877"/>
+      <circle cx="44" cy="6" r="3" fill="#e8c877"/>
+      <path d="M18,66 C18,38 38,18 66,18" fill="none" stroke="#c9a24a" stroke-width="1.5" opacity="0.8"/>
+    </svg>
+  </div>
+  <div class="corner br">
+    <svg viewBox="0 0 110 110">
+      <path d="M0,0 L110,0 L110,8 C70,8 60,18 40,38 C18,60 8,78 8,110 L0,110 Z" fill="#0d1747"/>
+      <path d="M0,0 L110,0" stroke="#d9a441" stroke-width="3"/>
+      <path d="M0,0 L0,110" stroke="#d9a441" stroke-width="3"/>
+      <path d="M6,44 C6,24 24,6 44,6" fill="none" stroke="#e8c877" stroke-width="2"/>
+      <circle cx="6" cy="44" r="3" fill="#e8c877"/>
+      <circle cx="44" cy="6" r="3" fill="#e8c877"/>
+      <path d="M18,66 C18,38 38,18 66,18" fill="none" stroke="#c9a24a" stroke-width="1.5" opacity="0.8"/>
+    </svg>
+  </div>
+
+  <!-- Temple silhouette background -->
+  <svg class="temple-bg" viewBox="0 0 1080 130" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#c9a24a">
+      <rect x="0" y="90" width="1080" height="40"/>
+      <polygon points="60,90 100,30 140,90"/>
+      <rect x="90" y="60" width="20" height="30"/>
+      <polygon points="220,90 260,10 300,90"/>
+      <rect x="250" y="55" width="20" height="35"/>
+      <polygon points="380,90 420,45 460,90"/>
+      <polygon points="540,90 580,20 620,90"/>
+      <rect x="570" y="55" width="20" height="35"/>
+      <polygon points="700,90 740,45 780,90"/>
+      <polygon points="860,90 900,10 940,90"/>
+      <rect x="890" y="55" width="20" height="35"/>
+      <polygon points="980,90 1020,50 1060,90"/>
+    </g>
+  </svg>
+
+  <div class="content">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="logo-wrap">
+        <div class="tagline">सबके साथ <span class="accent">अपने राम</span></div>
+        <div class="logo-circle">
+          <div class="ribbon">SHRI RAM</div>
+          {{#if logo_base_64}}
+            <img src="data:image/png;base64,{{ logo_base_64 }}" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;">
+          {{else}}
+            <div style="width: 100%; height: 100%; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #14205c; font-family: 'Poppins', sans-serif; font-weight: bold;">SRYF</div>
+          {{/if}}
+        </div>
+        <div class="logo-shield">YOUTH<br>FOUNDATION</div>
+        <div class="logo-sub"><span class="orange">CONNECTING YOUTH • SERVING HUMANITY</span></div>
+      </div>
+
+      <div class="divider-slash"></div>
+
+      <div class="title-block">
+        <div style="text-align:center; margin-bottom:2px;">
+          <svg width="40" height="18" viewBox="0 0 40 18"><path d="M20,2 C22,8 28,8 30,4 C27,10 27,14 20,16 C13,14 13,10 10,4 C12,8 18,8 20,2 Z" fill="#c9a24a"/></svg>
+        </div>
+        <div class="org-name">
+          <span class="shri-ram">श्री राम</span> <span class="rest">यूथ फाउंडेशन</span>
+        </div>
+        <div class="ornament-row">
+          <div class="ornament-line"></div>
+          <span class="ornament-diamond">❖</span>
+          <div class="ornament-line"></div>
+        </div>
+        <div style="text-align:center;">
+          <span class="motto-pill">एक भारत श्रेष्ठ भारत</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CERT BADGE -->
+    <div class="cert-badge-row">
+      <span class="cert-badge">सदस्यता प्रमाण पत्र</span>
+    </div>
+
+    <!-- BODY TEXT -->
+    <div class="body-text">
+      <div class="name-line">
+        यह प्रमाणित किया जाता है कि
+        <span class="name-field">{{ member_name }}</span>
+        को श्री राम यूथ फाउंडेशन का
+      </div>
+      <div><span class="role">माननीय सदस्य</span> नियुक्त किया जाता है। यह संगठन सामाजिक सेवा, युवा सशक्तिकरण, शिक्षा सहयोग,</div>
+      <div>स्वास्थ्य जागरूकता एवं मानवीय कार्यों के माध्यम से समाज के उज्ज्वल भविष्य हेतु समर्पित है।</div>
+      <div>हम आपके समर्पण, जागरूकता एवं योगदान की सराहना करते हैं, जो समाज में सकारात्मक परिवर्तन तथा</div>
+      <div>समुदाय के विकास के लिए प्रेरणादायक है।</div>
+    </div>
+
+    <!-- FOOTER MOTTO BAND -->
+    <div class="footer-band-row" style="text-align:center;">
+      <span class="footer-band">
+        मानवता के साथ <span class="sep">•</span> सेवा के साथ <span class="sep">•</span> एकता के साथ <span class="sep">•</span> राष्ट्र निर्माण के साथ
+      </span>
+    </div>
+
+    <!-- BOTTOM SECTION -->
+    <div class="bottom-section">
+      <div class="membership-info">
+        <div><b>प्रमाणपत्र क्रमांक :</b> <span class="value">{{ certificate_id }}</span></div>
+        {{#if isPaidMember}}
+        <div style="margin-top:6px;"><b>सदस्यता क्रमांक :</b> <span class="value">{{ membership_id }}</span></div>
+        {{/if}}
+        <div style="margin-top:6px;"><b>दिनांक :</b> <span class="value">{{ issue_date }}</span></div>
+      </div>
+
+      <div class="signature-block">
+        <div class="signature-line"></div>
+        <div class="signature-name">{{ signatory_name }}</div>
+        <div class="signature-role">{{ signatory_title }}</div>
+        <div class="signature-role">संस्थापक</div>
+        <div class="signature-org">श्री राम यूथ फाउंडेशन</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

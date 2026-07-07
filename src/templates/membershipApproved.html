@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>श्री राम यूथ फाउंडेशन में आपका स्वागत है</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { padding: 20px; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 5px; }
+    .header { text-align: center; margin-bottom: 20px; }
+    .button { display: inline-block; background-color: #f97316; color: #fff !important; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+    .details-section { border: 1px solid #eee; padding: 15px; margin: 20px 0; border-radius: 5px; background-color: #f9f9f9; }
+    .detail-item { margin-bottom: 10px; }
+    .label { font-weight: bold; color: #555; }
+    .value { color: #000; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>श्री राम यूथ फाउंडेशन</h2>
+      <p>सबके साथ अपने राम</p>
+    </div>
+    <p>प्रिय {{fullName}},</p>
+    <p>श्री राम यूथ फाउंडेशन परिवार में आपका हार्दिक स्वागत है।</p>
+    {{#if isFree}}
+      <p>हमें यह बताते हुए अत्यंत प्रसन्नता हो रही है कि आपकी निःशुल्क सदस्यता (Free Membership) सफलतापूर्वक सक्रिय कर दी गई है।</p>
+    {{else}}
+      <p>हमें यह बताते हुए अत्यंत प्रसन्नता हो रही है कि आपकी सशुल्क सदस्यता (Active Membership) सफलतापूर्वक स्वीकृत और सक्रिय कर दी गई है।</p>
+    {{/if}}
+    <p>अब आप हमारे सामाजिक सेवा, शिक्षा, स्वास्थ्य, रक्तदान, भोजन वितरण एवं अन्य जनकल्याणकारी कार्यक्रमों का एक महत्वपूर्ण और सम्मानित हिस्सा हैं।</p>
+
+    <div class="details-section">
+      {{#unless isFree}}
+        <div class="detail-item">
+          <span class="label">Membership ID:</span>
+          <span class="value">{{memberId}}</span>
+        </div>
+      {{/unless}}
+      <div class="detail-item">
+        <span class="label">प्रमाणपत्र क्रमांक:</span>
+        <span class="value">{{certificateNumber}}</span>
+      </div>
+    </div>
+
+    <p>आपका डिजिटल सदस्यता प्रमाण पत्र तैयार हो चुका है। नीचे दिए गए बटन पर क्लिक करके आप अपना प्रमाण पत्र देख एवं डाउनलोड कर सकते हैं।</p>
+    <p style="text-align: center; margin: 30px 0;">
+      <a href="{{certificateLink}}" class="button">📄 प्रमाण पत्र डाउनलोड करें</a>
+    </p>
+    <p>धन्यवाद।</p>
+    <p><b>श्री राम यूथ फाउंडेशन टीम</b></p>
+  </div>
+</body>
+</html>
